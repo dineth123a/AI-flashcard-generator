@@ -3,6 +3,30 @@
 <head>
   <title>Flashcards</title>
   <script src="https://js.puter.com/v2/"></script>
+  <style>
+  body { font-family: sans-serif; max-width: 500px; margin: 40px auto; }
+  .card {
+    background: #fdf6e3;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 20px 0;
+    min-height: 100px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  .card .answer {
+    display: none;
+    color: #555;
+    margin-top: 15px;
+    font-size: 15px;
+  }
+  .card.flipped .answer { display: block; }
+  .card.flipped .question { color: #999; font-size: 14px; }
+  .nav { text-align: center; margin-top: 10px; }
+  .nav button { margin: 0 5px; padding: 6px 14px; }
+</style>
 </head>
 <body>
   <h1>Notes to flashcards</h1>
@@ -11,6 +35,11 @@
   <button id="generateBtn">Generate flashcards</button>
 
   <div id="output"></div>
+  <div class="nav" id="navButtons" style="display:none;">
+  <button id="prevBtn">← Prev</button>
+  <span id="counter"></span>
+  <button id="nextBtn">Next →</button>
+  </div>
 
   <script>
       document.getElementById('generateBtn').addEventListener('click', async () => {
@@ -24,10 +53,44 @@
 
     const flashcards = JSON.parse(response.message.content);
 
-    document.getElementById('output').innerText = JSON.stringify(flashcards, null, 2);
+    showFlashcards(flashcards);
   } catch (err) {
     document.getElementById('output').innerText = 'Error: ' + err;
   }
+});
+
+let deck = [];
+let current = 0;
+
+function showFlashcards(cards) {
+  deck = cards;
+  current = 0;
+  document.getElementById('navButtons').style.display = 'block';
+  renderCard();
+}
+
+function renderCard() {
+  const card = deck[current];
+  document.getElementById('output').innerHTML = `
+    <div class="card" id="cardEl">
+      <div class="question">${card.front}</div>
+      <div class="answer">${card.back}</div>
+    </div>
+  `;
+  document.getElementById('counter').innerText = `${current + 1} / ${deck.length}`;
+  document.getElementById('cardEl').addEventListener('click', () => {
+    document.getElementById('cardEl').classList.toggle('flipped');
+  });
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  current = (current - 1 + deck.length) % deck.length;
+  renderCard();
+});
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  current = (current + 1) % deck.length;
+  renderCard();
 });
   </script>
 </body>
