@@ -39,7 +39,14 @@
         })
       });
 
-      const data = await response.json();
+            const data = await response.json();
+
+      if (!response.ok) {
+        document.getElementById('output').innerText = 'Error: ' + JSON.stringify(data);
+        console.log(data);
+        return;
+      }
+
       document.getElementById('output').innerText = data.content[0].text;
     });
   </script>
