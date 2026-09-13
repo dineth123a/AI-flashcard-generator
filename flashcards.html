@@ -14,19 +14,21 @@
 
   <script>
       document.getElementById('generateBtn').addEventListener('click', async () => {
-      const notes = document.getElementById('notes').value;
-      document.getElementById('output').innerText = 'Generating...';
+  const notes = document.getElementById('notes').value;
+  document.getElementById('output').innerText = 'Generating...';
 
-      try {
-        const response = await puter.ai.chat(
-          "Turn these notes into 5 flashcards. Respond with ONLY a JSON array like [{\"front\":\"...\",\"back\":\"...\"}], nothing else. Notes: " + notes
-        );
-        console.log(response);
-        document.getElementById('output').innerText = JSON.stringify(response);
-      } catch (err) {
-        document.getElementById('output').innerText = 'Error: ' + err;
-      }
-    });
+  try {
+    const response = await puter.ai.chat(
+      "Turn these notes into 5 flashcards. Respond with ONLY a JSON array like [{\"front\":\"...\",\"back\":\"...\"}], nothing else. Notes: " + notes
+    );
+
+    const flashcards = JSON.parse(response.message.content);
+
+    document.getElementById('output').innerText = JSON.stringify(flashcards, null, 2);
+  } catch (err) {
+    document.getElementById('output').innerText = 'Error: ' + err;
+  }
+});
   </script>
 </body>
 </html>
