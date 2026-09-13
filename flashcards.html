@@ -21,7 +21,8 @@
         const response = await puter.ai.chat(
           "Turn these notes into 5 flashcards. Respond with ONLY a JSON array like [{\"front\":\"...\",\"back\":\"...\"}], nothing else. Notes: " + notes
         );
-        document.getElementById('output').innerText = response.message.content[0].text;
+        console.log(response);
+        document.getElementById('output').innerText = JSON.stringify(response);
       } catch (err) {
         document.getElementById('output').innerText = 'Error: ' + err;
       }
