@@ -1,0 +1,165 @@
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 8px;
+    color: #111827;
+  }
+
+  /* Notes input */
+  #notes {
+    width: 100%;
+    min-height: 180px;
+    padding: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: white;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  #notes:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  }
+
+  #notes::placeholder {
+    color: #9ca3af;
+  }
+
+  /* Generate button */
+  #generateBtn {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 9px;
+    background: #6366f1;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  #generateBtn:hover {
+    background: #4f46e5;
+  }
+
+  #generateBtn:active {
+    transform: scale(0.98);
+  }
+
+  /* Flashcard */
+  .card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 40px 30px;
+    margin: 30px 0 18px;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1.5;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .card::after {
+    content: "Click to reveal answer";
+    display: block;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  .card.flipped::after {
+    content: "Click to hide answer";
+  }
+
+  .card .question {
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .card .answer {
+    display: none;
+    color: #4b5563;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 16px;
+  }
+
+  .card.flipped .answer {
+    display: block;
+  }
+
+  .card.flipped .question {
+    color: #9ca3af;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  /* Navigation */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  .nav button {
+    padding: 8px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    color: #374151;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .nav button:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+
+  #counter {
+    min-width: 55px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  /* Loading / error text */
+  #output:empty {
+    display: none;
+  }
